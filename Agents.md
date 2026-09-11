@@ -1,9 +1,8 @@
 # Project Context
 
-This project is a lightweight web dashboard designed to run fullscreen
-on an older iPad through Safari. The target device has limited system
-resources and runs an older version of iOS and Safari. The application
-is expected to run continuously for long periods.
+This project is a lightweight web dashboard designed to run fullscreen on an older iPad through Safari. The target device has limited system resources and runs an older version of iOS and Safari. The application is expected to run continuously for long periods.
+
+The application is intended to run as a single Dockerized application instance.
 
 # Hard Constraints
 
@@ -14,7 +13,9 @@ is expected to run continuously for long periods.
 
 - Separate frontend and backend responsibilities. The frontend is responsible for presentation and browser-side interactions, while the backend handles business logic, secret-dependent operations, and external API integrations.
 
-- The dashboard uses a modular, widget-based architecture. Each widget owns its feature-specific data access, UI presentation, user interactions, and interpretation of feature-specific data.
+- The dashboard uses a modular, widget-based architecture. Each widget owns its feature-specific UI, interactions, data interpretation, and corresponding backend feature logic.
+
+- The backend is a single application organized by widget/feature. Feature-specific API endpoints and backend logic SHOULD remain within the owning widget module.
 
 - The application shell owns dashboard-level concerns and shared platform mechanisms, such as layout, widget sizing and alignment, and common lifecycle or scheduling behavior.
 
