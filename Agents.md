@@ -13,9 +13,9 @@ The application is intended to run as a single Dockerized application instance.
 
 - Separate frontend and backend responsibilities. The frontend is responsible for presentation and browser-side interactions, while the backend handles business logic, secret-dependent operations, and external API integrations.
 
-- The dashboard uses a modular, widget-based architecture. Each widget owns its feature-specific UI, interactions, data interpretation, and corresponding backend feature logic.
+- The dashboard uses a modular, widget-based architecture. Each widget owns its feature-specific UI, interactions, data interpretation, API endpoints, and backend feature logic.
 
-- The backend is a single application organized by widget/feature. Feature-specific API endpoints and backend logic SHOULD remain within the owning widget module.
+- The backend is a single application organized by widget/feature rather than as separate services.
 
 - The application shell owns dashboard-level concerns and shared platform mechanisms, such as layout, widget sizing and alignment, and common lifecycle or scheduling behavior.
 
@@ -27,7 +27,7 @@ The application is intended to run as a single Dockerized application instance.
 
 - Prefer simple, resource-efficient solutions over unnecessarily complex designs. Evaluate simplicity at the system level, not only by the amount of application code.
 
-- Prefer existing patterns and implementations when they reasonably satisfy the requirement. Avoid introducing new abstractions without a concrete need.
+- Prefer existing patterns and implementations when they reasonably satisfy the requirement.
 
 - Avoid refactoring unrelated code while implementing a requested change.
 
@@ -61,7 +61,7 @@ After completing the task, summarize the implemented behavior, key design decisi
 
 - If a change affects the application shell, shared code, or other components used by multiple widgets, run a broader set of tests. Run the full test suite when the change has broad or cross-cutting impact.
 
-- If a requirement changes expected system behavior, add or update the relevant tests. Tests SHOULD cover both functional behavior and relevant compatibility risks.
+- Tests SHOULD cover functional behavior and compatibility risks introduced by the change.
 
 - Do not delete or skip relevant tests, or weaken test assertions, merely to make the test suite pass.
 
