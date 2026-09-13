@@ -1,0 +1,17 @@
+{
+  "name": "nightlight-frontend-compat-spike",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "serve": "node serve.mjs",
+    "test": "npm run build && playwright test"
+  },
+  "dependencies": { "preact": "10.29.8" },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  },
+  "engines": { "node": ">=22.12.0" }
+}
