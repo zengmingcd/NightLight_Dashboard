@@ -6,7 +6,7 @@ The application is intended to run as a single Dockerized application instance.
 
 # Technology Stack
 
-- **Frontend:** Preact + TypeScript + Vite, with HTML/CSS. This stack is accepted following target-iPad validation of the compatibility spike. Read [the frontend stack decision](docs/decisions/frontend_stack.md) for tested versions, required browser targets, and compatibility guidance before frontend implementation or dependency upgrades.
+- **Frontend:** Preact + TypeScript + Vite, with HTML/CSS. Accepted following target-iPad spike validation. Before implementation or upgrades, read the [stack decision](docs/decisions/frontend_stack.md) for versions and browser targets, and the [validation summary](docs/validation/ios-12-frontend-compatibility.md) for tested scope and limitations; acceptance does not guarantee compatibility of future changes.
 - **Backend:** Python 3.12 + FastAPI + Pydantic + Uvicorn.
 - **Deployment:** One Docker runtime container. Build frontend assets separately and serve them through FastAPI alongside `/api` endpoints; Node is build/development tooling.
 - **Dependencies:** Keep Node dependencies project-local. Use `python3.12 -m venv .venv` for Python dependencies; do not install them globally or commit `.venv`.
