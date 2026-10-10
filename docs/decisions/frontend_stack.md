@@ -9,7 +9,7 @@
 
 Use **Preact + TypeScript + Vite**, with HTML and CSS, for the production frontend.
 
-The project owner confirmed that the frontend compatibility spike works on the target iPad and approved this stack. The [first vertical-slice brief](../../.codex/tasks/02-first-vertical-slice.md) also records successful validation on Safari running on iOS 12.5.8.
+The project owner confirmed that the frontend compatibility spike works on the target iPad and approved this stack. The [frontend compatibility validation summary](../validation/ios-12-frontend-compatibility.md) records the outcome, tested scope, and limitations.
 
 This decision supersedes the provisional frontend selection and the acceptance-pending wording in the [spike README](../../spikes/frontend-compat/README.md). That README remains the historical implementation and validation report. Acceptance applies to the tested frontend baseline; it does not certify every future dependency, feature, or upgrade.
 
