@@ -1,17 +1,64 @@
 # Status vertical slice validation
 
-Validation date: 2026-10-22. Implementation is uncommitted, based on
+Original slice validation date: 2026-10-22. Implementation was uncommitted, based on
 `abda12d377b2011340c88f64d63dce489402ee1f`.
 
-Tested final Docker image: `nightlight-dashboard:status-slice`, image ID
+Original tested Docker image: `nightlight-dashboard:status-slice`, image ID
 `sha256:c5be195126507729752021743c206425b08b18616c919b3790f569fe8afd0cb8`.
-Production assets: `index-DP2hXsI7.js` and `index-DdEjK_q8.css`.
+Original production assets: `index-DP2hXsI7.js` and `index-DdEjK_q8.css`.
 No target-iPad or endurance results have been supplied for this slice.
 
-The implementation and tests already existed as uncommitted work when task 05
-was resumed. After plan approval, they were reviewed against task 05 and all
+The canonical task for this work is [task 04: Implement the First Status Widget
+Vertical Slice](../../.codex/tasks/04-first-vertical-slice.md).
+
+The implementation and tests already existed as uncommitted work when task 04
+was resumed. After plan approval, they were reviewed against task 04 and all
 automated checks below were rerun successfully on October 22. No production or
 test changes were needed; this report was updated with the fresh evidence.
+
+## Task 04-1 follow-up: pending HTTP error bodies
+
+On October 22, the follow-up fix confirmed that the non-2xx path released the
+request guard immediately after receiving headers. A new regression failed on
+the original code because Retry was enabled while the controlled body remained
+pending. The fixture delivers headers separately from body completion and can
+resolve or reject the body independently.
+
+`StatusWidget.tsx` now displays the HTTP failure immediately, then consumes and
+discards the body with `response.arrayBuffer()` before releasing the guard.
+The existing deadline and unmount cancellation stay active during that read.
+Abort alone does not release the guard: the read must resolve or reject. Late
+completion preserves the failure state and cannot update a replacement widget.
+No dependencies, shared infrastructure or browser target changes were added.
+
+Fresh validation for this fix:
+
+- Strict type checking and production build passed. New JavaScript asset:
+  `index-grapbn2t.js`, 15.78 KB (6.58 KB gzip); CSS is unchanged.
+- All 46 controlled widget tests passed, 23 each in Chromium and modern WebKit.
+  The 16 added engine/case combinations cover pending HTTP error bodies,
+  successful/rejected body completion, timeout, unmount, native/missing/
+  ineffective cancellation, blocked retry, manual recovery and obsolete results.
+- All 11 backend/static-serving tests passed against the new frontend build.
+- Both real API E2E tests passed against FastAPI serving the new build on
+  `127.0.0.1:18005`, without endpoint mocks or uncaught browser errors.
+- Source and emitted assets were reviewed: the body read uses `arrayBuffer()`;
+  Safari/iOS 12 build targets remain unchanged; no optional chaining, nullish
+  coalescing or Promise.finally call was introduced. `git diff --check` passed.
+
+The initial `npm test` run passed the build and widget suites, then could not
+start E2E because the existing review container occupied port 8000. This was an
+environment conflict; E2E passed with `DASHBOARD_URL=http://127.0.0.1:18005`
+against a temporary FastAPI server. That server was stopped after validation.
+The review container on port 8000 still uses the original image above. Docker
+was not rebuilt or retested for this follow-up; its earlier results apply to
+the original slice only.
+
+The body reader buffers the error body until completion before discarding it.
+If cancellation is unavailable or ineffective and the body never settles,
+Retry remains disabled and reload is required. Target-iPad and endurance
+validation remain pending; modern engine tests do not establish iOS 12.5.8
+compatibility. The original slice evidence below predates this follow-up.
 
 ## Implemented flow and ownership
 

@@ -38,7 +38,14 @@ export function StatusWidget() {
         });
         if (!response.ok) {
           failureMessage = 'The status request failed (HTTP ' + response.status + ').';
-          throw new Error(failureMessage);
+          if (alive && !expired) {
+            setState('failure');
+            setMessage(failureMessage);
+          }
+          // Headers alone do not settle the transfer. Keep the guard and
+          // cancellation/deadline active until the discarded body settles.
+          await response.arrayBuffer();
+          return;
         }
         failureMessage = 'The server returned an invalid status response.';
         const data: unknown = await response.json();
