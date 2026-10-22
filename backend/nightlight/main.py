@@ -4,11 +4,14 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
+from nightlight.widgets.status.router import router as status_router
+
 
 # Local: frontend/dist. Container: /app/frontend/dist.
 FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+app.include_router(status_router)
 
 
 @app.get("/", include_in_schema=False)

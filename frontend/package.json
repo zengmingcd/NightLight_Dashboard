@@ -6,7 +6,9 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build",
-    "test": "npm run build && playwright test"
+    "test": "npm run build && npm run test:status && npm run test:e2e",
+    "test:status": "playwright test --config playwright-status.config.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": { "preact": "10.29.8" },
   "devDependencies": { "@playwright/test": "1.63.0", "typescript": "7.0.2", "vite": "8.3.0" },

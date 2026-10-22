@@ -1,0 +1,18 @@
+.status-widget {
+  padding: 20px;
+  border: 1px solid #556477;
+  border-radius: 8px;
+}
+
+.status-widget h2 { margin: 0 0 12px; font-size: 24px; }
+.status-widget button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  min-height: 44px;
+  font: inherit;
+  color: #17202d;
+  background: #edf3fa;
+  border: 0;
+  border-radius: 4px;
+}
+.status-widget button:disabled { opacity: 0.5; }

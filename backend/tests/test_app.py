@@ -31,7 +31,7 @@ def test_dashboard_and_built_assets(client):
 
 
 @pytest.mark.parametrize("path", [
-    "/api", "/api/", "/api/missing", "/api/widgets/status",
+    "/api", "/api/", "/api/missing", "/api/widgets/missing",
     "/missing", "/assets/missing.js", "/assets/../index.html",
 ])
 def test_missing_routes_do_not_return_dashboard(client, path):
@@ -43,3 +43,27 @@ def test_missing_routes_do_not_return_dashboard(client, path):
 
 def test_dashboard_rejects_post(client):
     assert client.post("/").status_code == 405
+
+
+def test_status_contract(client):
+    response = client.get("/api/widgets/status")
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("application/json")
+    assert response.json() == {"status": "ok"}
+
+
+def test_encoded_asset_traversal():
+    scopes = []
+
+    async def inspect_scope(scope, receive, send):
+        if scope["type"] == "http":
+            scopes.append((scope["path"], scope["raw_path"]))
+        await app(scope, receive, send)
+
+    with TestClient(inspect_scope) as client:
+        response = client.get("/assets/%2e%2e/index.html")
+    assert scopes == [("/assets/../index.html", b"/assets/%2e%2e/index.html")]
+    assert response.status_code == 404
+    assert response.headers["content-type"].startswith("application/json")
+    assert response.json() == {"detail": "Not Found"}
+    assert "NightLight Dashboard" not in response.text
