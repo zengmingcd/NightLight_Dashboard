@@ -1,0 +1,45 @@
+.weather-widget {
+  padding: 20px;
+  border: 1px solid #556477;
+  border-radius: 8px;
+}
+
+.weather-widget h2 { margin: 0 0 8px; font-size: 24px; }
+.weather-status, .weather-notice { margin: 0; }
+.weather-notice { color: #ffe3a3; }
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-gap: 8px;
+  list-style: none;
+  margin: 12px 0;
+  padding: 0;
+}
+
+.weather-hour {
+  min-width: 0;
+  padding: 8px 2px;
+  border: 1px solid #556477;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.weather-hour time, .weather-hour-label, .weather-date,
+.weather-temperature, .weather-precipitation { display: block; }
+.weather-hour-label { font-size: 20px; }
+.weather-date { font-size: 14px; }
+.weather-icon { display: block; margin: 6px auto; }
+.weather-temperature { font-size: 30px; line-height: 1.3; }
+.weather-precipitation { font-size: 18px; }
+.weather-footer { font-size: 14px; }
+.weather-footer p { margin: 0; }
+.weather-footer a { color: #c7e3ff; }
+
+@media (max-width: 600px) {
+  .weather-widget { padding: 12px; }
+  .weather-grid { grid-gap: 4px; }
+  .weather-hour-label { font-size: 16px; }
+  .weather-temperature { font-size: 20px; }
+  .weather-date, .weather-precipitation { font-size: 12px; }
+}

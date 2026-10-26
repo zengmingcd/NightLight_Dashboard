@@ -1,12 +1,25 @@
 # Status vertical slice validation
 
+## Owner-confirmed Phase 3 acceptance
+
+The project owner confirmed that Phase 3 Docker, target-iPad compatibility and
+endurance validations passed. This supersedes the historical Pending statements
+below. Missing device logs, acceptance dates, individual checklist results and
+endurance measurements have not been independently verified or reconstructed.
+The original execution evidence is preserved below with its historical scope.
+This acceptance does not establish compatibility of the new Phase 4 Weather
+integration; see [Weather integration validation](weather-integration.md).
+
+## Historical implementation evidence
+
 Original slice validation date: 2026-10-22. Implementation was uncommitted, based on
 `abda12d377b2011340c88f64d63dce489402ee1f`.
 
 Original tested Docker image: `nightlight-dashboard:status-slice`, image ID
 `sha256:c5be195126507729752021743c206425b08b18616c919b3790f569fe8afd0cb8`.
 Original production assets: `index-DP2hXsI7.js` and `index-DdEjK_q8.css`.
-No target-iPad or endurance results have been supplied for this slice.
+At the time of the original report, no detailed target-iPad or endurance results
+had been supplied. The later owner confirmation above supersedes its pending status.
 
 The canonical task for this work is [task 04: Implement the First Status Widget
 Vertical Slice](../../.codex/tasks/04-first-vertical-slice.md).
@@ -56,9 +69,10 @@ the original slice only.
 
 The body reader buffers the error body until completion before discarding it.
 If cancellation is unavailable or ineffective and the body never settles,
-Retry remains disabled and reload is required. Target-iPad and endurance
-validation remain pending; modern engine tests do not establish iOS 12.5.8
-compatibility. The original slice evidence below predates this follow-up.
+Retry remains disabled and reload is required. At the time of this follow-up,
+target-iPad and endurance validation were pending; the later owner confirmation
+above supersedes that status. Modern engine tests alone do not establish iOS
+12.5.8 compatibility. The original slice evidence below predates this follow-up.
 
 ## Implemented flow and ownership
 
@@ -192,15 +206,16 @@ client, test fixture, or Flexbox gap in the production assets. CSS uses basic
 padding, margins, borders, custom properties and inherited fonts. JavaScript is
 approximately 15.74 KB (6.57 KB gzip); CSS is 0.59 KB (0.32 KB gzip).
 
-This review and modern browser results do not prove Safari on iOS 12.5.8
-compatibility. Target-device networking, cancellation, fullscreen behavior,
-suspension and long-running resource stability remain unverified. No endurance
-validation is claimed.
+This historical review and its modern browser results did not independently
+prove Safari on iOS 12.5.8 compatibility, target-device lifecycle behavior or
+endurance. Those validations were subsequently confirmed complete by the owner;
+no missing measurements or device logs are inferred from that confirmation.
 
-## Target-iPad checklist and remaining acceptance
+## Historical target-iPad checklist
 
 Record the iPad model, iOS/Safari version, date, tested image ID or future commit,
-and actual result for each check. All checks below are currently pending.
+and actual result for each check when detailed records are available. These checks
+were pending when written; Phase 3 acceptance is now owner-confirmed as above.
 
 1. Load the production dashboard over the LAN on Safari/iOS 12.5.8. Confirm the
    shell mounts and the initial loading fallback disappears.
@@ -215,6 +230,6 @@ and actual result for each check. All checks below are currently pending.
 4. Check portrait and landscape: readable headings/status, no clipping, and an
    accessible Retry control in the failure state.
 
-Target-device results must be recorded before claiming iOS compatibility for
-this slice. Any endurance run should separately record duration, build and
-observations; previous spike acceptance is not evidence for this new behavior.
+The owner confirmation closes Phase 3 acceptance without supplying missing
+per-check records. Future device/endurance runs should record duration, build and
+observations separately; Phase 4 acceptance must not be inferred from Phase 3.

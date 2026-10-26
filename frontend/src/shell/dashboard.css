@@ -19,5 +19,18 @@ body {
   padding: 24px;
 }
 
+.dashboard-widgets {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  grid-gap: 16px;
+  align-items: start;
+}
+
+.dashboard-widgets > * { min-width: 0; }
+
+@media (max-width: 900px) {
+  .dashboard-widgets { grid-template-columns: minmax(0, 1fr); }
+}
+
 h1 { margin: 0 0 16px; font-size: 28px; }
 p { margin: 0; }

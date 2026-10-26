@@ -6,11 +6,12 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build",
-    "test": "npm run build && npm run test:status && npm run test:e2e",
-    "test:status": "playwright test --config playwright-status.config.ts",
+    "test": "npm run build && npm run test:status && npm run test:weather && npm run test:e2e",
+    "test:status": "playwright test status.spec.ts --config playwright-status.config.ts",
+    "test:weather": "playwright test --config playwright-weather.config.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": { "preact": "10.29.8" },
-  "devDependencies": { "@playwright/test": "1.63.0", "typescript": "7.0.2", "vite": "8.3.0" },
+  "devDependencies": { "@playwright/test": "1.63.0", "typescript": "7.0.2", "vite": "8.3.3" },
   "engines": { "node": ">=22.12.0" }
 }
